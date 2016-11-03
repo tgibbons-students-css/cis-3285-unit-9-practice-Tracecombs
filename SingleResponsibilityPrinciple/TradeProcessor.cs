@@ -92,7 +92,7 @@ namespace SingleResponsibilityPrinciple
             Console.WriteLine(message, args);
             using (StreamWriter logfile = File.AppendText("log.xml"))
             {
-                logfile.WriteLine("<log><type> +msgType+ </type>" + message + "</log> ", args);
+                logfile.WriteLine("<log><type>" +msgType+ "</type>" + message + "</log> ", args);
             }
         }
 
