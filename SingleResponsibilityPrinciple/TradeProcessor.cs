@@ -74,7 +74,16 @@ namespace SingleResponsibilityPrinciple
                 LogMessage("WARN: Trade price on line {0} not a valid decimal: '{1}'", currentLine, fields[2]);
                 return false;
             }
-
+            if (tradeAmount <1000)
+            {
+                LogMessage("WARN: Invalid value", currentLine, fields[2]);
+                return false;
+            }
+            if (tradeAmount > 100000)
+            {
+                LogMessage("WARN: Invalid value", currentLine, fields[2]);
+                return false;
+            }
             return true;
         }
 
