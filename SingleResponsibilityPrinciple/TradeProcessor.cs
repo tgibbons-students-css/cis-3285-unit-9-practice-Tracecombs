@@ -23,6 +23,21 @@ namespace SingleResponsibilityPrinciple
             }
             return tradeData;
         }
+        private IEnumerable<string> ReadURLTradeData(String url)
+        {
+            var tradeData = new List<string>();
+            var client = new WebClient();
+            using (var stream = client.OpenRead(url))
+            using (var reader = new StreamReader(stream))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    tradeData.Add(line);
+                }
+            }
+            return tradeData;
+        }
 
         private IEnumerable<TradeRecord> ParseTrades(IEnumerable<string> tradeData)
         {
@@ -144,9 +159,10 @@ namespace SingleResponsibilityPrinciple
             LogMessage("INFO:", "{0} trades processed", trades.Count());
         }
 
-        public void ProcessTrades(Stream stream)
+        public void ProcessTrades(String url)
         {
-            var lines = ReadTradeData(stream);
+            var lines = ReadURLTradeData(url);
+            //var lines = ReadTradeData(stream);
             var trades = ParseTrades(lines);
             StoreTrades(trades);
         }
